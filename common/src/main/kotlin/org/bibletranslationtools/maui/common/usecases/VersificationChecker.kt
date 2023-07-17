@@ -9,8 +9,8 @@ import org.wycliffeassociates.otter.common.audio.wav.CueChunk
 import org.wycliffeassociates.otter.common.audio.wav.WavFile
 import org.wycliffeassociates.otter.common.audio.wav.WavMetadata
 
-class FileVerifier(private val versification: Versification) {
-    fun handleItem(fileData: FileData): VerifiedResult {
+class VersificationChecker(private val versification: Versification) {
+    fun check(fileData: FileData): VerifiedResult {
         if (fileData.grouping == Grouping.CHAPTER) {
             isBookValid(fileData).let {
                 if (it.status == FileStatus.REJECTED) {
