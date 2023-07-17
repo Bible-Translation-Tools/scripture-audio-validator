@@ -1,0 +1,20 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group 'org.wycliffeassociates'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVer"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-server-content-negotiation:$ktor_version"
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVer")
+}

@@ -1,3 +1,4 @@
 rootProject.name = 'scripture-audio-validator'
 include 'common'
+include 'web'
 
