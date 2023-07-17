@@ -1,9 +1,9 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
 import org.junit.Assert.assertEquals
-import org.bibletranslationtools.maui.common.data.FileData
-import org.bibletranslationtools.maui.common.data.Grouping
-import org.bibletranslationtools.maui.common.data.MediaQuality
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileData
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.Grouping
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.MediaQuality
 import org.junit.Test
 import java.io.File
 

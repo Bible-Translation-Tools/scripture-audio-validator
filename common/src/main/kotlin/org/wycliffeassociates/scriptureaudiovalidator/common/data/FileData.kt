@@ -1,8 +1,8 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.data
 
-import org.bibletranslationtools.maui.common.extensions.CompressedExtensions
-import org.bibletranslationtools.maui.common.extensions.ContainerExtensions
-import org.bibletranslationtools.maui.common.extensions.MediaExtensions
+import org.wycliffeassociates.scriptureaudiovalidator.common.extensions.CompressedExtensions
+import org.wycliffeassociates.scriptureaudiovalidator.common.extensions.ContainerExtensions
+import org.wycliffeassociates.scriptureaudiovalidator.common.extensions.MediaExtensions
 import java.io.File
 
 data class FileData(

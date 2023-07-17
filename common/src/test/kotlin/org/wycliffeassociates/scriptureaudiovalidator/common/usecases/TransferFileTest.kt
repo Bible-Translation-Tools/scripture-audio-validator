@@ -1,7 +1,7 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
 import com.nhaarman.mockitokotlin2.doReturn
-import org.bibletranslationtools.maui.common.client.IFileTransferClient
+import org.wycliffeassociates.scriptureaudiovalidator.common.client.IFileTransferClient
 import org.junit.Test
 import com.nhaarman.mockitokotlin2.mock
 import io.reactivex.Completable

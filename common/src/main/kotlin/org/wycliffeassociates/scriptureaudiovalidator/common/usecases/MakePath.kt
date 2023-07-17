@@ -1,7 +1,7 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
 import io.reactivex.Single
-import org.bibletranslationtools.maui.common.data.FileData
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileData
 import java.util.regex.Pattern
 
 class MakePath(private val fileData: FileData) {

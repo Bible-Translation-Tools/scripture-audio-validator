@@ -1,8 +1,8 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
-import org.bibletranslationtools.maui.common.data.FileData
-import org.bibletranslationtools.maui.common.data.Grouping
-import org.bibletranslationtools.maui.common.data.MediaQuality
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileData
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.Grouping
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.MediaQuality
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern

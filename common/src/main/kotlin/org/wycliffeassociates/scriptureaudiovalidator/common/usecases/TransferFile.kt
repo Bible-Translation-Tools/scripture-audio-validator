@@ -1,7 +1,7 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
 import io.reactivex.Completable
-import org.bibletranslationtools.maui.common.client.IFileTransferClient
+import org.wycliffeassociates.scriptureaudiovalidator.common.client.IFileTransferClient
 
 class TransferFile(private val client: IFileTransferClient) {
 

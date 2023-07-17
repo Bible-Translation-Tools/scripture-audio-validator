@@ -1,9 +1,9 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor
 
-import org.bibletranslationtools.maui.common.data.FileData
-import org.bibletranslationtools.maui.common.data.FileResult
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.usecases.ParseFileName
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileData
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.usecases.ParseFileName
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.util.Queue

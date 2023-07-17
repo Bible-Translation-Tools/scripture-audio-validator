@@ -1,13 +1,13 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
-import org.bibletranslationtools.maui.common.data.FileData
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.data.Grouping
-import org.bibletranslationtools.maui.common.data.VerifiedResult
-import org.bibletranslationtools.maui.common.io.Versification
 import org.wycliffeassociates.otter.common.audio.wav.CueChunk
 import org.wycliffeassociates.otter.common.audio.wav.WavFile
 import org.wycliffeassociates.otter.common.audio.wav.WavMetadata
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileData
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.Grouping
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.VerifiedResult
+import org.wycliffeassociates.scriptureaudiovalidator.common.io.Versification
 
 class VersificationChecker(private val versification: Versification) {
     fun check(fileData: FileData): VerifiedResult {

@@ -1,12 +1,12 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.validators
 
-import org.bibletranslationtools.maui.common.audio.BttrChunk
-import org.bibletranslationtools.maui.common.audio.BttrMetadata
 import org.wycliffeassociates.otter.common.audio.wav.CueChunk
 import org.wycliffeassociates.otter.common.audio.wav.InvalidWavFileException
 import org.wycliffeassociates.otter.common.audio.wav.WavFile
 import org.wycliffeassociates.otter.common.audio.wav.WavMetadata
 import org.wycliffeassociates.otter.common.audio.wav.WavType
+import org.wycliffeassociates.scriptureaudiovalidator.common.audio.BttrChunk
+import org.wycliffeassociates.scriptureaudiovalidator.common.audio.BttrMetadata
 import java.io.File
 import java.util.regex.Pattern
 

@@ -1,9 +1,9 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor
 
-import org.bibletranslationtools.maui.common.data.FileResult
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.data.MediaExtension
-import org.bibletranslationtools.maui.common.validators.OratureValidator
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.MediaExtension
+import org.wycliffeassociates.scriptureaudiovalidator.common.validators.OratureValidator
 import org.slf4j.LoggerFactory
 import org.wycliffeassociates.resourcecontainer.ResourceContainer
 import java.io.File

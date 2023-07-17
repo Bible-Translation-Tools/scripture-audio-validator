@@ -1,8 +1,14 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
-import org.bibletranslationtools.maui.common.data.FileResult
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.fileprocessor.*
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.CueProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.FileProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.JpgProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.Mp3Processor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.OratureFileProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.TrProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.WavProcessor
 import java.io.File
 import java.io.IOException
 import java.util.Queue

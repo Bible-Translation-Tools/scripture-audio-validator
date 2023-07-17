@@ -1,9 +1,9 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor
 
-import org.bibletranslationtools.maui.common.data.FileResult
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.extensions.MediaExtensions
-import org.bibletranslationtools.maui.common.validators.JpgValidator
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.extensions.MediaExtensions
+import org.wycliffeassociates.scriptureaudiovalidator.common.validators.JpgValidator
 import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.Queue

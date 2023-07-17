@@ -1,9 +1,9 @@
 package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
-import org.bibletranslationtools.maui.common.data.FileStatus
-import org.bibletranslationtools.maui.common.fileprocessor.FileProcessor
-import org.bibletranslationtools.maui.common.fileprocessor.OratureFileProcessor
-import org.bibletranslationtools.maui.common.fileprocessor.WavProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.FileProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.OratureFileProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.WavProcessor
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
