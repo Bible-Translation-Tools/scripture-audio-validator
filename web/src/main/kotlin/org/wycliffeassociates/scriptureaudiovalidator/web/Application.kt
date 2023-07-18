@@ -1,7 +1,6 @@
 package org.wycliffeassociates.scriptureaudiovalidator.web
 
-import io.ktor.http.*
-import io.ktor.serialization.jackson.*
+import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -26,5 +25,4 @@ fun main() {
     val server = embeddedServer(Netty, host = host, port = port, module = Application::module)
     println("Ktor server has started at http://$host:$port/")
     server.start(wait = true)
-
 }

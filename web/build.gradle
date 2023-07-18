@@ -1,5 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
+    id 'com.github.johnrengelman.shadow' version "$shadowPluginVer"
+    id 'application'
 }
 
 group 'org.wycliffeassociates'
@@ -7,6 +9,8 @@ version '1.0.0'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url "https://nexus-registry.walink.org/repository/maven-public/" }
 }
 
 dependencies {
@@ -18,4 +22,16 @@ dependencies {
     implementation "io.ktor:ktor-serialization-jackson:$ktor_version"
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVer")
+}
+
+application {
+    mainClassName = "org.wycliffeassociates.scriptureaudiovalidator.web.ApplicationKt"
+}
+
+shadowJar {
+    manifest {
+        attributes(
+            'Main-Class': "org.wycliffeassociates.scriptureaudiovalidator.web.ApplicationKt"
+        )
+    }
 }
