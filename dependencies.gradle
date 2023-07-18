@@ -4,7 +4,7 @@ ext {
     buildscanPluginVer = '3.7.1'
     detektPluginVer = '1.10.0-RC1'
     ktlintPluginVer = '8.2.0'
-    shadowPluginVer = '5.2.0'
+    shadowPluginVer = '8.0.0'
 
     thymeleafVer = '3.1.1.RELEASE'
     thymeleafDialectVer = '2.1.1'
