@@ -40,7 +40,7 @@ class FileProcessingRouter(private val processors: List<FileProcessor>) {
         val rejected = FileResult(
                 status = FileStatus.REJECTED,
                 data = null,
-                requestedFile = file
+                file = file
         )
         resultList.add(rejected)
     }

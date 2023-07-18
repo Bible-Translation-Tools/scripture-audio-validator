@@ -2,8 +2,9 @@ package org.wycliffeassociates.scriptureaudiovalidator.common.data
 
 import java.io.File
 
-class FileResult(
-        val status: FileStatus,
-        val data: FileData?,
-        val requestedFile: File? = null
+data class FileResult(
+    val status: FileStatus,
+    val data: FileData?,
+    val file: File? = null,
+    val message: String? = null
 )

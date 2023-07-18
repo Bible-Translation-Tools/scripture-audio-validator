@@ -1,18 +1,22 @@
 package org.wycliffeassociates.scriptureaudiovalidator.web
 
+import io.ktor.http.hostIsIp
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.routing.*
 import org.wycliffeassociates.scriptureaudiovalidator.web.route.index
 
 fun Application.module() {
+    install(CORS) {
+        anyHost()
+    }
     install(ContentNegotiation) {
         jackson()
     }
-
     install(Routing) {
         index()
     }
