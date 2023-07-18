@@ -1,12 +1,13 @@
 package org.wycliffeassociates.scriptureaudiovalidator.web.route
 
-import io.ktor.http.*
-import io.ktor.http.content.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.PartData
+import io.ktor.http.content.forEachPart
+import io.ktor.http.content.streamProvider
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.FileProcessor
 import org.wycliffeassociates.scriptureaudiovalidator.common.usecases.FileProcessingRouter
 import java.io.File
 
@@ -24,7 +25,7 @@ fun Routing.index() {
                     is PartData.FileItem -> {
                         // Get the file name and save the file to a location (e.g., "uploads" directory)
                         val fileName = part.originalFileName ?: "unknown_file"
-                        val file = File("path/$fileName")
+                        val file = File("D:\\misc\\temp\\sav\\$fileName")
                         part.streamProvider().use { input ->
                             file.outputStream().buffered().use { output ->
                                 input.copyTo(output)
@@ -33,8 +34,7 @@ fun Routing.index() {
 
                         val fileProcessor = FileProcessingRouter.build()
                         val results = fileProcessor.handleFiles(listOf(file))
-//                        call.respond(results)
-                        println(results)
+                        call.respond(results)
                     }
 
                     else -> {
