@@ -18,6 +18,7 @@ import java.util.LinkedList
 
 class FileProcessingRouter(private val processors: List<FileProcessor>) {
     private val fileQueue: Queue<File> = LinkedList<File>()
+    private val checker = VersificationChecker(VersificationReader())
 
     @Throws(IOException::class)
     fun handleFiles(files: List<File>): List<FileResult> {
@@ -34,13 +35,11 @@ class FileProcessingRouter(private val processors: List<FileProcessor>) {
         }
         val secondPass = mutableListOf<FileResult>()
 
-        with(VersificationChecker(VersificationReader().read())) {
-            val verifiedItems = firstPass.map {
-                val checkResult = check(it.data!!)
-                it.copy(status = checkResult.status, message = checkResult.message)
-            }
-            secondPass.addAll(verifiedItems)
+        val verifiedItems = firstPass.map {
+            val checkResult = checker.check(it.data!!)
+            it.copy(status = checkResult.status, message = checkResult.message)
         }
+        secondPass.addAll(verifiedItems)
 
         return secondPass + resultList.filter {
             it.status == FileStatus.REJECTED || MediaExtensions.of(it.file.extension) != MediaExtensions.WAV

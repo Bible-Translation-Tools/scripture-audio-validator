@@ -8,9 +8,14 @@ import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
 import org.wycliffeassociates.scriptureaudiovalidator.common.data.Grouping
 import org.wycliffeassociates.scriptureaudiovalidator.common.data.VerifiedResult
 import org.wycliffeassociates.scriptureaudiovalidator.common.io.Versification
+import org.wycliffeassociates.scriptureaudiovalidator.common.io.VersificationReader
 
-class VersificationChecker(private val versification: Versification) {
+class VersificationChecker(private val versificationReader: VersificationReader) {
+
+    private lateinit var versification: Versification
+
     fun check(fileData: FileData): VerifiedResult {
+        versification = versificationReader.read(fileData.language!!)
         if (fileData.grouping == Grouping.CHAPTER) {
             isBookValid(fileData).let {
                 if (it.status == FileStatus.REJECTED) {
