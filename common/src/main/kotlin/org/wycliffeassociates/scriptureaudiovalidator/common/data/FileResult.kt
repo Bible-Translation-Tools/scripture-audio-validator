@@ -5,6 +5,6 @@ import java.io.File
 data class FileResult(
     val status: FileStatus,
     val data: FileData?,
-    val file: File? = null,
+    val file: File,
     val message: String? = null
 )

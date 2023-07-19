@@ -27,7 +27,7 @@ class WavProcessor : FileProcessor() {
         return try {
             WavValidator(file).validate()
             val fileData = getFileData(file)
-            val result = FileResult(status = FileStatus.PROCESSED, data = fileData)
+            val result = FileResult(status = FileStatus.PROCESSED, data = fileData, file = file)
             resultList.add(result)
 
             FileStatus.PROCESSED
