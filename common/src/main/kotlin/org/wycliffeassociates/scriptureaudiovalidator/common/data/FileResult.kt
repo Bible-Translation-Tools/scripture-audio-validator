@@ -7,4 +7,6 @@ data class FileResult(
     val data: FileData?,
     val file: File,
     val message: String? = null
-)
+) {
+    val fileName = file.name
+}

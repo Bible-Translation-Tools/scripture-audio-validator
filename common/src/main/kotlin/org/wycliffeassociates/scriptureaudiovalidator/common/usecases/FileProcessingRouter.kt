@@ -2,6 +2,7 @@ package org.wycliffeassociates.scriptureaudiovalidator.common.usecases
 
 import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
 import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
+import org.wycliffeassociates.scriptureaudiovalidator.common.extensions.MediaExtensions
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.CueProcessor
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.FileProcessor
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.JpgProcessor
@@ -9,6 +10,7 @@ import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.Mp3Pr
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.OratureFileProcessor
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.TrProcessor
 import org.wycliffeassociates.scriptureaudiovalidator.common.fileprocessor.WavProcessor
+import org.wycliffeassociates.scriptureaudiovalidator.common.io.VersificationReader
 import java.io.File
 import java.io.IOException
 import java.util.Queue
@@ -26,7 +28,23 @@ class FileProcessingRouter(private val processors: List<FileProcessor>) {
             processFile(fileQueue.poll(), resultList)
         }
 
-        return resultList
+        val firstPass = resultList.filter {
+            it.status == FileStatus.PROCESSED &&
+                MediaExtensions.of(it.file.extension) == MediaExtensions.WAV
+        }
+        val secondPass = mutableListOf<FileResult>()
+
+        with(VersificationChecker(VersificationReader().read())) {
+            val verifiedItems = firstPass.map {
+                val checkResult = check(it.data!!)
+                it.copy(status = checkResult.status, message = checkResult.message)
+            }
+            secondPass.addAll(verifiedItems)
+        }
+
+        return secondPass + resultList.filter {
+            it.status == FileStatus.REJECTED || MediaExtensions.of(it.file.extension) != MediaExtensions.WAV
+        }
     }
 
     private fun processFile(file: File, resultList: MutableList<FileResult>) {

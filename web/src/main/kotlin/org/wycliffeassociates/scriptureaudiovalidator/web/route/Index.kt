@@ -12,11 +12,11 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
-import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileStatus
-import org.wycliffeassociates.scriptureaudiovalidator.common.io.VersificationReader
 import org.wycliffeassociates.scriptureaudiovalidator.common.usecases.FileProcessingRouter
-import org.wycliffeassociates.scriptureaudiovalidator.common.usecases.VersificationChecker
 import java.io.File
+import java.util.*
+
+private val uploadDir = File(System.getenv("UPLOAD_DIR"))
 
 fun Routing.index() {
     route("/") {
@@ -27,14 +27,16 @@ fun Routing.index() {
     route("/upload") {
         post {
             val multipart = call.receiveMultipart()
-            val reportList = mutableListOf<FileResult>()
-            multipart.forEachPart { part ->
-                when (part) {
+            val filesReport = mutableListOf<FileResult>()
+            val dir = uploadDir.resolve(UUID.randomUUID().toString()).apply { mkdir() }
+
+            multipart.forEachPart { filePart ->
+                when (filePart) {
                     is PartData.FileItem -> {
                         // Get the file name and save the file to a location (e.g., "uploads" directory)
-                        val fileName = part.originalFileName ?: "unknown_file"
-                        val file = File("E:\\miscs\\temp\\sav\\$fileName")
-                        part.streamProvider().use { input ->
+                        val fileName = filePart.originalFileName ?: "unknown_file"
+                        val file = dir.resolve(fileName)
+                        filePart.streamProvider().use { input ->
                             file.outputStream().buffered().use { output ->
                                 input.copyTo(output)
                             }
@@ -42,25 +44,16 @@ fun Routing.index() {
 
                         val fileProcessor = FileProcessingRouter.build()
                         val processedFiles = fileProcessor.handleFiles(listOf(file))
-                        reportList.addAll(processedFiles.filter { it.status == FileStatus.REJECTED })
-
-                        val firstPass = processedFiles.filter { it.status == FileStatus.PROCESSED }
-                        with(VersificationChecker(VersificationReader().read())) {
-                            val verifiedItems = firstPass.map {
-                                val checkResult = check(it.data!!)
-                                it.copy(status = checkResult.status, message = checkResult.message)
-                            }
-                            reportList.addAll(verifiedItems)
-                        }
+                        filesReport.addAll(processedFiles)
                     }
-
                     else -> {
-                        part.dispose() // Dispose of the part if it's not a file
+                        filePart.dispose() // Dispose of the part if it's not a file
                     }
                 }
             }
 
-            call.respond(reportList)
+            call.respond(filesReport)
+            dir.deleteRecursively()
         }
     }
 }
