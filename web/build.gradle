@@ -4,7 +4,7 @@ plugins {
     id 'application'
 }
 
-group 'org.wycliffeassociates'
+group 'org.bibletranslationtools'
 version '1.0.0'
 
 repositories {
@@ -24,13 +24,13 @@ dependencies {
 }
 
 application {
-    mainClassName = "org.wycliffeassociates.scriptureaudiovalidator.web.ApplicationKt"
+    mainClassName = "org.bibletranslationtools.scriptureaudiovalidator.web.ApplicationKt"
 }
 
 shadowJar {
     manifest {
         attributes(
-            'Main-Class': "org.wycliffeassociates.scriptureaudiovalidator.web.ApplicationKt"
+            'Main-Class': "org.bibletranslationtools.scriptureaudiovalidator.web.ApplicationKt"
         )
     }
 }
