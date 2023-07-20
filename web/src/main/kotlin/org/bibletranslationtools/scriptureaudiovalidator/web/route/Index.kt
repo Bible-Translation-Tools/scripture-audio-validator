@@ -12,6 +12,7 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.FileResult
+import org.bibletranslationtools.scriptureaudiovalidator.common.data.SerializableFileResult
 import org.bibletranslationtools.scriptureaudiovalidator.common.usecases.FileProcessingRouter
 import java.io.File
 import java.util.*
@@ -27,7 +28,7 @@ fun Routing.index() {
     route("/upload") {
         post {
             val multipart = call.receiveMultipart()
-            val filesReport = mutableListOf<FileResult>()
+            val filesReport = mutableListOf<SerializableFileResult>()
             val dir = uploadDir.resolve(UUID.randomUUID().toString()).apply { mkdir() }
 
             multipart.forEachPart { filePart ->
@@ -44,7 +45,15 @@ fun Routing.index() {
 
                         val fileProcessor = FileProcessingRouter.build()
                         val processedFiles = fileProcessor.handleFiles(listOf(file))
-                        filesReport.addAll(processedFiles)
+                        filesReport.addAll(
+                            processedFiles.map {
+                                SerializableFileResult(
+                                    it.status,
+                                    it.file.name,
+                                    it.message
+                                ) // hide internal storage path
+                            }
+                        )
                     }
                     else -> {
                         filePart.dispose() // Dispose of the part if it's not a file
