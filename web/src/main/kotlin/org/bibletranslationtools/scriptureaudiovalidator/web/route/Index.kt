@@ -11,8 +11,8 @@ import io.ktor.server.routing.Routing
 import io.ktor.server.routing.route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
-import org.wycliffeassociates.scriptureaudiovalidator.common.data.FileResult
-import org.wycliffeassociates.scriptureaudiovalidator.common.usecases.FileProcessingRouter
+import org.bibletranslationtools.scriptureaudiovalidator.common.data.FileResult
+import org.bibletranslationtools.scriptureaudiovalidator.common.usecases.FileProcessingRouter
 import java.io.File
 import java.util.*
 
