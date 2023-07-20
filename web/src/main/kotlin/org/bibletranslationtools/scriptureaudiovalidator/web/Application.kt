@@ -26,6 +26,5 @@ fun main() {
     val port = 8080
 
     val server = embeddedServer(Netty, host = host, port = port, module = Application::module)
-    println("Ktor server has started at http://$host:$port/")
     server.start(wait = true)
 }
