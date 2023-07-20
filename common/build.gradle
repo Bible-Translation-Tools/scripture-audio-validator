@@ -1,4 +1,4 @@
-group 'org.wycliffeassociates'
+group 'org.bibletranslationtools'
 version '1.0.0'
 
 repositories {
