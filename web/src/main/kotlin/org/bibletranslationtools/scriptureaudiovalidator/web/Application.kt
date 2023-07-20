@@ -1,7 +1,6 @@
 package org.bibletranslationtools.scriptureaudiovalidator.web
 
-import io.ktor.http.hostIsIp
-import io.ktor.serialization.jackson.jackson
+import io.ktor.serialization.gson.gson
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -15,7 +14,7 @@ fun Application.module() {
         anyHost()
     }
     install(ContentNegotiation) {
-        jackson()
+        gson()
     }
     install(Routing) {
         index()

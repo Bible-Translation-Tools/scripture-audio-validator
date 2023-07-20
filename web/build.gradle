@@ -19,8 +19,8 @@ dependencies {
     implementation "io.ktor:ktor-server-core:$ktor_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-server-content-negotiation:$ktor_version"
-    implementation "io.ktor:ktor-serialization-jackson:$ktor_version"
     implementation "io.ktor:ktor-server-cors:$ktor_version"
+    implementation "io.ktor:ktor-serialization-gson:$ktor_version" // avoids conflict with the current jackson json used by rc lib
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVer")
 }
