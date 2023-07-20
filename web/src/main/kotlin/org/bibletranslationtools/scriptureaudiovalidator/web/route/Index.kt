@@ -46,12 +46,8 @@ fun Routing.index() {
                         val fileProcessor = FileProcessingRouter.build()
                         val processedFiles = fileProcessor.handleFiles(listOf(file))
                         filesReport.addAll(
-                            processedFiles.map {
-                                SerializableFileResult(
-                                    it.status,
-                                    it.file.name,
-                                    it.message
-                                ) // hide internal storage path
+                            processedFiles.map { result ->
+                                SerializableFileResult(result) // hide internal storage path
                             }
                         )
                     }
