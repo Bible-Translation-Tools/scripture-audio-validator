@@ -22,9 +22,13 @@ fun Application.module() {
 }
 
 fun main() {
-    val host = "localhost" // Bind to all network interfaces
+    val host = "localhost" /* For development only, use as a parameter for embeddedServer() method below */
     val port = 8080
 
-    val server = embeddedServer(Netty, host = host, port = port, module = Application::module)
+    val server = embeddedServer(
+        Netty,
+        port = port,
+        module = Application::module
+    )
     server.start(wait = true)
 }
