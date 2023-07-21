@@ -9,5 +9,6 @@ RUN mkdir /app
 
 COPY --from=builder /sav-server/build/libs/scripture-audio-validator_web.jar.jar /app/scripture-audio-validator.jar
 WORKDIR /app
+ENV UPLOAD_DIR=/upload
 
 CMD ["java", "-server", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:MaxGCPauseMillis=100", "-XX:+UseStringDeduplication", "-jar", "scripture-audio-validator.jar"]
