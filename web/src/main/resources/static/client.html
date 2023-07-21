@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Scripture Audio Validator
+        </title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #2185d0;
+        }
+
+        #responseTable {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #responseTable th,
+        #responseTable td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #responseTable th {
+            background-color: #f2f2f2;
+        }
+        #dropArea {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+
+        #dropArea.active {
+            background-color: #e5e5e5;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Scripture Audio Validator
+        </h1>
+        <div id="dropArea" ondragleave="dragLeaveHandler(event);" ondragover="dragOverHandler(event);" ondrop="dropHandler(event);">
+            <p>
+                Drag & Drop files here or 
+                <label class="custom-file-upload" for="fileInput">
+		            Choose File(s)
+		        </label>
+		        <input id="fileInput" multiple="" onchange="uploadFile();" type="file"/>
+            </p>
+        </div>
+        <table id="responseTable">
+        </table>
+
+        <script>
+        function createTable(dataArray) {
+            const table = document.getElementById("responseTable");
+
+            // Clear previous table data
+            table.innerHTML = "";
+
+            // Create header row
+            const headerRow = table.insertRow();
+            const headers = ["File", "Status", "Message"];
+
+            for (const headerText of headers) {
+                const headerCell = document.createElement("th");
+                headerCell.textContent = headerText;
+                headerRow.appendChild(headerCell);
+            }
+
+            // Create rows for each data object
+            for (const dataObj of dataArray) {
+                const row = table.insertRow();
+
+                const fileCell = row.insertCell();
+                fileCell.textContent = dataObj.fileName || "N/A";
+
+                const statusCell = row.insertCell();
+                statusCell.textContent = dataObj.status || "";
+                if (dataObj.status == "REJECTED") {
+                	statusCell.style.backgroundColor = '#ff8b9f';
+                } else {
+                	statusCell.style.backgroundColor = '#a7ffad';
+                }
+
+                const messageCell = row.insertCell();
+                messageCell.textContent = dataObj.message || "";
+            }
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            const formData = new FormData();
+
+            if (fileInput.files.length === 0) {
+                alert("Please select one or more files before uploading.");
+                return;
+            }
+
+            for (const file of fileInput.files) {
+            	console.log(file.name);
+                formData.append("file", file);
+            }
+
+            fetch("http://localhost:8080/upload", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json"
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+            	console.log("Completed!");
+                createTable(data);
+            })
+            .catch(error => {
+                const errFiles = [];
+                for (const file of fileInput.files) {
+                	errFiles.push(file);
+                }
+                console.error("Error processing the uploaded file(s).");
+            })
+        }
+
+		function dragOverHandler(event) {
+			event.preventDefault();
+			event.currentTarget.classList.add("active");
+		}
+
+		function dragLeaveHandler(event) {
+			event.preventDefault();
+			event.currentTarget.classList.remove("active");
+		}
+
+		function dropHandler(event) {
+			event.preventDefault();
+			event.currentTarget.classList.remove("active");
+			const files = event.dataTransfer.files;
+			document.getElementById("fileInput").files = files;
+			uploadFile();
+		}
+        </script>
+    </body>
+</html>
