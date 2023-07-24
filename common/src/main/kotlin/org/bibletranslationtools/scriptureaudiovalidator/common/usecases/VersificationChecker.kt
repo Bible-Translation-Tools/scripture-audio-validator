@@ -1,16 +1,20 @@
 package org.bibletranslationtools.scriptureaudiovalidator.common.usecases
 
-import org.wycliffeassociates.otter.common.audio.wav.CueChunk
-import org.wycliffeassociates.otter.common.audio.wav.WavFile
-import org.wycliffeassociates.otter.common.audio.wav.WavMetadata
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.FileData
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.FileStatus
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.Grouping
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.VerifiedResult
 import org.bibletranslationtools.scriptureaudiovalidator.common.io.Versification
+import org.bibletranslationtools.scriptureaudiovalidator.common.io.VersificationReader
+import org.wycliffeassociates.otter.common.audio.wav.CueChunk
+import org.wycliffeassociates.otter.common.audio.wav.WavFile
+import org.wycliffeassociates.otter.common.audio.wav.WavMetadata
 
-class VersificationChecker(private val versification: Versification) {
+class VersificationChecker(private val versificationReader: VersificationReader) {
+
+    private lateinit var versification: Versification
     fun check(fileData: FileData): VerifiedResult {
+        versification = versificationReader.read(fileData.language!!)
         if (fileData.grouping == Grouping.CHAPTER) {
             isBookValid(fileData).let {
                 if (it.status == FileStatus.REJECTED) {

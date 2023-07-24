@@ -3,6 +3,8 @@ package org.bibletranslationtools.scriptureaudiovalidator.common.usecases
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.FileData
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.Grouping
 import org.bibletranslationtools.scriptureaudiovalidator.common.data.MediaQuality
+import org.bibletranslationtools.scriptureaudiovalidator.common.extensions.ContainerExtensions
+import org.bibletranslationtools.scriptureaudiovalidator.common.extensions.MediaExtensions
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -125,7 +127,9 @@ class ParseFileName(private val file: File) {
                 _matcher.group(Groups.GROUPING.value) != null ->
                     Grouping.of(_matcher.group(Groups.GROUPING.value))
                 _matcher.group(Groups.LAST_VERSE.value) != null ->
-                    Grouping.of("chunk")
+                    Grouping.CHUNK
+                isChapterNonContainer(_matcher) ->
+                    Grouping.CHAPTER
                 else -> null
             }
         }
@@ -138,5 +142,12 @@ class ParseFileName(private val file: File) {
                 MediaQuality.of(it)
             }
         }
+    }
+
+    private fun isChapterNonContainer(matcher: Matcher): Boolean {
+        val mediaExtension = MediaExtensions.of(file.extension).norm
+        return matcher.group(Groups.CHAPTER.value).isNullOrBlank().not()
+                && matcher.group(Groups.FIRST_VERSE.value).isNullOrBlank()
+                && ContainerExtensions.isSupported(mediaExtension).not()
     }
 }

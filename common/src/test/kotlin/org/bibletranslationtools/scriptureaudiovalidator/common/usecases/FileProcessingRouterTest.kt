@@ -11,16 +11,18 @@ import java.io.FileNotFoundException
 
 class FileProcessingRouterTest {
     private val oratureFile = "orature_file.zip" // orature file contains 2 bad wav files
-    private val wavFile = "en_ulb_b41_mat_c01.wav"
+    private val inCompleteChapterWav = "en_ulb_b41_mat_c01.wav" // has only 1 marker out of 25 expected
+    private val validWav = "en_ulb_b41_mat_c01_v01_t01.wav" // has only 1 marker out of 25 expected
     private val badFile = "fake.jpg"
-    private val expectedResultSize = 4
+    private val expectedResultSize = 5
 
     @Test
     fun testHandleFiles() {
         val files = listOf(
                 getTestFile(oratureFile),
-                getTestFile(wavFile),
-                getTestFile(badFile)
+                getTestFile(inCompleteChapterWav),
+                getTestFile(badFile),
+                getTestFile(validWav)
         )
         val processors: List<FileProcessor> = listOf(
                 OratureFileProcessor(),
@@ -37,7 +39,7 @@ class FileProcessingRouterTest {
 
         assertEquals(expectedResultSize, result.size)
         assertEquals(1, processedFileCount)
-        assertEquals(3, rejectedFileCount)
+        assertEquals(4, rejectedFileCount)
     }
 
     private fun getTestFile(fileName: String): File {

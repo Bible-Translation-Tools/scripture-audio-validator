@@ -8,11 +8,11 @@ import java.io.File
 import java.lang.IllegalArgumentException
 import java.util.Queue
 
-class Mp3Processor: FileProcessor() {
+class Mp3Processor : FileProcessor() {
     override fun process(
-            file: File,
-            fileQueue: Queue<File>,
-            resultList: MutableList<FileResult>
+        file: File,
+        fileQueue: Queue<File>,
+        resultList: MutableList<FileResult>
     ): FileStatus {
         val ext = try {
             MediaExtensions.of(file.extension)
@@ -27,7 +27,7 @@ class Mp3Processor: FileProcessor() {
         return try {
             Mp3Validator(file).validate()
             val fileData = getFileData(file)
-            val result = FileResult(status = FileStatus.PROCESSED, data = fileData)
+            val result = FileResult(status = FileStatus.PROCESSED, data = fileData, file = file)
             resultList.add(result)
 
             FileStatus.PROCESSED

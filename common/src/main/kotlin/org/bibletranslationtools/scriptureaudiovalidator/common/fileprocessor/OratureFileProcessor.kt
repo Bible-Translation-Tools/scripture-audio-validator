@@ -28,10 +28,8 @@ class OratureFileProcessor: FileProcessor() {
             fileQueue.addAll(extractedFiles)
 
             FileStatus.PROCESSED
-        } catch (ex: IOException) {
-            logger.error(
-                    "An error occurred while extracting audio from Orature file: $file", ex
-            )
+        } catch (ex: Exception) {
+            logger.error("An error occurred while extracting audio from Orature file: $file", ex)
             FileStatus.REJECTED
         }
     }

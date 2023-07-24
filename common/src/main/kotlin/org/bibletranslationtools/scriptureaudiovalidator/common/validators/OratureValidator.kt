@@ -17,7 +17,6 @@ class OratureValidator(private val file: File) {
             }
             return true
         } catch (ex: Exception) {
-            logger.info("File was not recognized as Orature format: $file", ex)
             return false
         }
     }
