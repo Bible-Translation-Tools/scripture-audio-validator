@@ -1,12 +1,14 @@
 package org.bibletranslationtools.scriptureaudiovalidator.web.route
 
-import io.ktor.http.HttpStatusCode
+import io.ktor.http.ContentType
 import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
 import io.ktor.http.content.streamProvider
+import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
 import io.ktor.server.routing.Routing
 import io.ktor.server.routing.route
 import io.ktor.server.routing.get
@@ -25,7 +27,8 @@ private val fileProcessor = FileProcessingRouter.build()
 fun Routing.index() {
     route("/") {
         get {
-            call.respond(HttpStatusCode.OK, "Hello, Ktor!")
+            val html = getResourceContent("static/client.html")
+            call.respondText(html, ContentType.Text.Html)
         }
     }
     route("/upload") {
@@ -76,5 +79,11 @@ private fun processFile(file: File): List<SerializableFileResult> {
         listOf(
             SerializableFileResult(FileStatus.REJECTED, file.name, "Error")
         )
+    }
+}
+
+private fun getResourceContent(name: String): String {
+    Application::class.java.classLoader.getResourceAsStream(name).bufferedReader().use { input ->
+        return input.readText()
     }
 }
