@@ -30,6 +30,8 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'scripture-audio-validator_web.jar'
+    mergeServiceFiles()
     manifest {
         attributes(
             'Main-Class': "org.bibletranslationtools.scriptureaudiovalidator.web.ApplicationKt"
